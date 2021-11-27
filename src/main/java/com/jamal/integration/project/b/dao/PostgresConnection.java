@@ -18,7 +18,6 @@ public class PostgresConnection {
 
         try {
             dbcon = DriverManager.getConnection(url, user, password);
-            System.out.println("You are now connected to the server");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
