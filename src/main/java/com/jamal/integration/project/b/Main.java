@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         PostgresConnection app = new PostgresConnection();
-        Car car = new Car("Jamal", "Focus");
+        Car car = new Car("kalams", "CEMius");
 
         long id = app.insertCar(car);
 

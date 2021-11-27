@@ -32,22 +32,13 @@ public class PostgresConnection {
 
         long id = 0;
 
-        try ( Connection dbcon = dbcon();  PreparedStatement prepareStatement = dbcon.prepareStatement(SQLinsert, Statement.RETURN_GENERATED_KEYS)) {
+        try ( Connection dbcon = dbcon();) {
+
+            PreparedStatement prepareStatement = dbcon.prepareStatement(SQLinsert);
             prepareStatement.setString(1, car.getCarname());
             prepareStatement.setString(2, car.getBrand());
 
-            int rowsAffected = prepareStatement.executeUpdate();
-
-            if (rowsAffected > 0) {
-
-                try ( ResultSet rs = prepareStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        id = rs.getLong(1);
-                    }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
+            prepareStatement.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
