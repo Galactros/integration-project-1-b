@@ -1,6 +1,7 @@
 package com.jamal.integration.project.b.dao;
 
 import com.jamal.integration.project.b.model.Paciente;
+import com.jamal.integration.project.b.model.Paciente_Vacina;
 import com.jamal.integration.project.b.model.Vacina;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,6 +54,24 @@ public class PostgresConnection {
             prepareStatement.setString(1, vacina.getNome());
             prepareStatement.setInt(2, vacina.getAno());
             prepareStatement.setInt(3, vacina.getImunidade_duracao());
+
+            prepareStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void insertVinculos(Paciente_Vacina vinculo) {
+        String SQLinsert = "INSERT INTO paciente_vacina(id_paciente,id_vacina,vacinacao_date) "
+                + "VALUES(?,?,?::date)";
+
+        try ( Connection dbcon = dbcon();) {
+
+            PreparedStatement prepareStatement = dbcon.prepareStatement(SQLinsert);
+            prepareStatement.setInt(1, vinculo.getId_paciente());
+            prepareStatement.setInt(2, vinculo.getId_vacina());
+            prepareStatement.setString(3, vinculo.getVacinacao_date());
 
             prepareStatement.executeUpdate();
 
